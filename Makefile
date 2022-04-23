@@ -1,7 +1,4 @@
-.PHONY: build run clean all
-
-build:
-	go build -o bin/main util.go main.go
+.PHONY: run clean
 
 run:
 	go run src/*.go
@@ -9,7 +6,3 @@ run:
 clean:
 	rm -rf savedFiles
 	rm -rf downloadFiles
-
-all: build run
-
-
