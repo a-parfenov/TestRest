@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 const (
@@ -24,9 +26,11 @@ func NewHandler() *handler {
 func main() {
 	handler := NewHandler()
 
-	http.HandleFunc("/upload", handler.upload)
-	http.HandleFunc("/download", handler.download)
+	r := mux.NewRouter()
+	r.HandleFunc("/upload", handler.upload)
+	r.HandleFunc("/download", handler.download)
 
+	http.Handle("/", r)
 	http.ListenAndServe(":8080", nil)
 
 	fmt.Println("exit")

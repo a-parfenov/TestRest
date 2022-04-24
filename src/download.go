@@ -28,11 +28,16 @@ func checkPartFile(partFile []byte) ([]byte) {
 			size = i
 		}
 	}
-	tmpPartFile := make([]byte, size)
-	for j := 0; j < size; j++ {
-		tmpPartFile[j] = partFile[j]
+
+	if size == sizeBuf {
+		return partFile
+	} else {
+		tmpPartFile := make([]byte, size)
+		for j := 0; j < size; j++ {
+			tmpPartFile[j] = partFile[j]
+		}
+		return tmpPartFile
 	}
-	return tmpPartFile
 }
 
 func handDownload(w http.ResponseWriter, r *http.Request, fileName string) {

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"io"
 	"io/ioutil"
@@ -14,7 +13,6 @@ import (
 func readFileChunk(w http.ResponseWriter, r *http.Request) {
 	file, header, err := r.FormFile("file")
 	if err != nil {
-		log.Printf("%s", err)
 		return
 	}
 	defer func() { file.Close() }()
@@ -41,10 +39,7 @@ func (h *handler) upload(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("html/upload.html")
 	t.Execute(w, "")
 
-	fmt.Println("Метод:", r.Method)
-	if r.Method == "POST" {
-		readFileChunk(w, r)
-	}
+	readFileChunk(w, r)
 }
 
 func creatingAFile(b []byte, i int, fileName string) {
