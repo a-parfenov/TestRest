@@ -72,7 +72,7 @@ func handDownload(w http.ResponseWriter, r *http.Request, fileName string) {
 	io.WriteString(w, `<form><h3>Файл собран и сохранен</h3></form>`)
 }
 
-func (h *handler) download(w http.ResponseWriter, r *http.Request) {
+func download(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("html/download.html")
 	t.Execute(w, "")
 

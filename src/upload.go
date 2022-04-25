@@ -35,18 +35,18 @@ func readFileChunk(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, `<form><h3>Файл сохранен</h3></form>`)
 }
 
-func (h *handler) upload(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("html/upload.html")
-	t.Execute(w, "")
-
-	readFileChunk(w, r)
-}
-
 func creatingAFile(b []byte, i int, fileName string) {
 	name := fileName + "-" + strconv.Itoa(i)
-
+	
 	err := ioutil.WriteFile(dirSaved + "/" + name, b, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func upload(w http.ResponseWriter, r *http.Request) {
+	t, _ := template.ParseFiles("html/upload.html")
+	t.Execute(w, "")
+
+	readFileChunk(w, r)
 }

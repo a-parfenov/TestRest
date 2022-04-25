@@ -13,22 +13,11 @@ const (
 	sizeBuf		= 1048576  // 1 mb == 1048576 bytes
 )
 
-type handler struct {
-	savesFiles map[string]bool
-}
-
-func NewHandler() *handler {
-	return &handler{
-		savesFiles: make(map[string]bool),
-	}
-}
-
 func main() {
-	handler := NewHandler()
-
 	r := mux.NewRouter()
-	r.HandleFunc("/upload", handler.upload)
-	r.HandleFunc("/download", handler.download)
+
+	r.HandleFunc("/upload", upload)
+	r.HandleFunc("/download", download)
 
 	http.Handle("/", r)
 	http.ListenAndServe(":8080", nil)
